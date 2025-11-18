@@ -21,4 +21,31 @@ fun main() {
     var correct = 0
 
     println("Welcome to the geography quiz - Good Luck!")
+
+    var question = 0
+
+    for (count in 0..12)
+    {
+        do {
+            question = Random.nextInt(0, 13) // random number 0 to 12
+        } while(duplicates[question] == true)
+
+        duplicates[question] = true
+
+        println("What is the Capital of" + provinces[question] + "?")
+        answer = readLine().toString()
+
+        if (answer == capitals[question])
+            println("Congratulations, you are correct")
+        correct += 1  // equivalent to correct = correct + 1
+
+        else
+        {
+            println("Sorry you are incorrect")
+        }
+
+    }
+
+    println("You got " + correct + " questions correct.")
+
 }
