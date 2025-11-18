@@ -4,48 +4,55 @@ import kotlin.random.Random
 
 fun main() {
 
-    val provinces = arrayOf("Alberta", "British Columbia", "Manitoba",
-        "New Brunswick", "Newfoundland & Labrador",  "NorthWest territories",
+    val provinces = arrayOf(
+        "Alberta", "British Columbia", "Manitoba",
+        "New Brunswick", "Newfoundland & Labrador", "NorthWest Territories",
         "Nova Scotia", "Nunavut", "Ontario", "Prince Edward Island",
-        "Quebec", "Saskatchewan", "Yukon")
+        "Quebec", "Saskatchewan", "Yukon"
+    )
 
-    val capitals = arrayOf("Edmonton", "Victoria", "winnipeg", "Fredricton",
-        "St. John's", "Yellow Knife", "Halifax", "Iqaluit", "Toronto",
-        "Charlottetown", "quebec City", "Regina", "White Horse")
+    val capitals = arrayOf(
+        "Edmonton", "Victoria", "Winnipeg",
+        "Fredericton", "St. John's", "Yellowknife",
+        "Halifax", "Iqaluit", "Toronto",
+        "Charlottetown", "Quebec City", "Regina", "Whitehorse"
+    )
 
-    var duplicates = arrayOf(false, false, false, false
-        false, false, false, false,
-        false, false, false, false, false)
+    // Track which questions have been asked
+    val duplicates = Array(13) { false }
 
-    var answer = ""
     var correct = 0
 
-    println("Welcome to the geography quiz - Good Luck!")
+    println("Welcome to the Geography Quiz - Good Luck!")
+    println("------------------------------------------")
 
-    var question = 0
+    for (i in 0..12) {
 
-    for (count in 0..12)
-    {
+        // Get a unique random index
+        var question: Int
         do {
-            question = Random.nextInt(0, 13) // random number 0 to 12
-        } while(duplicates[question] == true)
+            question = Random.nextInt(0, 13)
+        } while (duplicates[question])
 
         duplicates[question] = true
 
-        println("What is the Capital of" + provinces[question] + "?")
-        answer = readLine().toString()
+        print("What is the capital of ${provinces[question]}? ")
+        val answer = readLine()?.trim() ?: ""
 
-        if (answer == capitals[question])
-            println("Congratulations, you are correct")
-        correct += 1  // equivalent to correct = correct + 1
-
-        else
-        {
-            println("Sorry you are incorrect")
+        if (answer.equals(capitals[question], ignoreCase = true)) {
+            println("✅ Correct!")
+            correct += 1
+        } else {
+            println("❌ Incorrect. The capital is: ${capitals[question]}")
         }
 
+        println()
     }
 
-    println("You got " + correct + " questions correct.")
+    println("------------------------------------------")
+    println("Quiz Completed!")
+    println("You got $correct out of 13 correct.")
+    println("------------------------------------------")
 
+    readLine()
 }
